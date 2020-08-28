@@ -42,7 +42,7 @@ class ParseFlickrJsonData (private val listener: OnDataAvailable): AsyncTask<Str
             listener.onError(e)
         }
 
-        Log.d(TAG, "doInBackground ends")
+        Log.d(TAG, "doInBackground ends, result: $photoList")
         return photoList
     }
 
@@ -51,6 +51,6 @@ class ParseFlickrJsonData (private val listener: OnDataAvailable): AsyncTask<Str
         super.onPostExecute(result)
 
         listener.onDataAvailable(result)
-        Log.d(TAG, "onPostExecute")
+        Log.d(TAG, "onPostExecute ends")
     }
 }

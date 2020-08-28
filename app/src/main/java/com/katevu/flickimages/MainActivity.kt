@@ -3,6 +3,7 @@ package com.katevu.flickimages
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -28,16 +29,6 @@ class MainActivity : BaseActivity(),
         recycle_view.layoutManager = LinearLayoutManager(this)
         recycle_view.addOnItemTouchListener(RecyclerItemClickListener(this, recycle_view, this))
         recycle_view.adapter = flickrRecyclerViewAdapter
-
-        val url = createUri(
-            "https://www.flickr.com/services/feeds/photos_public.gne",
-            "animals",
-            "en-us",
-            true
-        )
-        val getRawData = GetRawData(this)
-
-        getRawData.execute(url)
         Log.d(TAG, "onCreate ends")
 
     }
@@ -73,7 +64,10 @@ class MainActivity : BaseActivity(),
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -101,11 +95,28 @@ class MainActivity : BaseActivity(),
     }
 
     override fun onError(exception: Exception) {
-
         Log.d(TAG, "onError called, error: $exception")
-
     }
 
+    override fun onResume() {
+        Log.d(TAG, "onResume called")
+        super.onResume()
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val queryResult = sharedPref.getString(FLICKR_QUERY,"").toString()
+
+        if (queryResult.isNotEmpty()) {
+            val url = createUri(
+                "https://www.flickr.com/services/feeds/photos_public.gne",
+                queryResult,
+                "en-us",
+                true
+            )
+            val getRawData = GetRawData(this)
+            getRawData.execute(url)
+        }
+
+    }
     override fun onItemClick(view: View, position: Int) {
         Log.d(TAG, "onItemClick called")
         Toast.makeText(this,"Item on click at position: $position", Toast.LENGTH_SHORT).show()

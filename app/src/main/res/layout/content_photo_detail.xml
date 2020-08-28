@@ -22,14 +22,15 @@
                 android:id="@+id/photo_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="TextView" />
+                android:layout_margin="8dp" />
 
             <ImageView
                 android:id="@+id/photo_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/browse_image_des"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/placeholder_image_icon_48dp" />
 
@@ -37,15 +38,13 @@
                 android:id="@+id/photo_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="TextView" />
+                android:layout_margin="8dp" />
 
             <TextView
                 android:id="@+id/photo_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="TextView"
                 android:textSize="12sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

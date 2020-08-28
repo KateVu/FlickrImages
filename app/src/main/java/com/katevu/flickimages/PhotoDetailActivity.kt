@@ -13,13 +13,15 @@ class PhotoDetailActivity : BaseActivity() {
         setContentView(R.layout.activity_photo_detail)
         activateToolbar(true)
 
-        val photo = intent.getSerializableExtra(PHOTO_TRANSFER) as Photo
+//        val photo = intent.getSerializableExtra(PHOTO_TRANSFER) as Photo
+        val photo = intent.extras?.getParcelable<Photo>(PHOTO_TRANSFER) as Photo
+
         Log.d(TAG,"link: ${photo.link}")
         Log.d(TAG,"image: ${photo.image}")
 
-        photo_title.text = photo.title
-        photo_tags.text = photo.tags
-        photo_author.text = photo.author
+        photo_title.text = resources.getString(R.string.photo_title_text, photo.title)
+        photo_tags.text = resources.getString(R.string.photo_tags_text, photo.tags)
+        photo_author.text = resources.getString(R.string.photo_author_text,photo.author)
         Picasso.get()
             .load(photo.link)
             .error(R.drawable.placeholder_image_icon_48dp)

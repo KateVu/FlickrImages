@@ -16,7 +16,7 @@ open class BaseActivity : AppCompatActivity() {
     internal fun activateToolbar(enableHome: Boolean) {
         Log.d(TAG, ".activateToolbar")
 
-        var toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
+        val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(enableHome)
     }
